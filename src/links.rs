@@ -5,13 +5,13 @@ pub struct Link {
     pub url: String,
 }
 
-pub fn parse<T: ToString>(message: T) -> Vec<Link> {
-    let msg = message.to_string();
+pub fn parse<T: ToString>(msg: T) -> Vec<Link> {
+    let message = msg.to_string();
     let mut links: Vec<Link> = Vec::new();
 
     let re = Regex::new(r###"(?:(?:https?|ftp)://|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?"###).unwrap();
  
-    for caps in re.captures_iter(&*msg) {
+    for caps in re.captures_iter(&*message) {
         links.push(Link { url: caps.get(0).unwrap().as_str().to_string() });
     }
 
@@ -21,9 +21,10 @@ pub fn parse<T: ToString>(message: T) -> Vec<Link> {
 #[cfg(test)]
 mod tests {
     use super::parse;
+    // @TODO https://github.com/BurntSushi/quickcheck ?
 
     #[test]
-    fn should_not_found_links() {
+    fn should_not_find_links() {
         let links = parse("test message");
 
         assert_eq!(links.len(), 0);

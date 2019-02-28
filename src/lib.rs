@@ -8,11 +8,11 @@ pub struct MessageMeta {
     pub links: Vec<links::Link>,
 }
 
-pub fn parse<T: ToString>(message: T) -> MessageMeta {
-    let msg = message.to_string();
-    let links = links::parse(msg.clone());
+pub fn parse<T: ToString>(msg: T) -> MessageMeta {
+    let message = msg.to_string();
+    let links = links::parse(message.clone());
 
-    MessageMeta { message: msg.to_string(), links }
+    MessageMeta { message, links }
 }
 
 #[cfg(test)]
