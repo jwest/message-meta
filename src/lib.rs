@@ -1,5 +1,8 @@
+extern crate regex;
+
 mod links;
 
+#[derive(Debug)]
 pub struct MessageMeta {
     pub message: String,
     pub links: Vec<links::Link>,
@@ -22,5 +25,14 @@ mod tests {
 
         assert_eq!(meta.message, "test message");
         assert_eq!(meta.links.len(), 0);
+    }
+
+    #[test]
+    fn should_parse_message_with_link() {
+        let meta = parse("test message https://google.com/ test");
+
+        assert_eq!(meta.message, "test message https://google.com/ test");
+        assert_eq!(meta.links.len(), 1);
+        assert_eq!(meta.links[0].url, "https://google.com/");
     }
 }
