@@ -21,7 +21,7 @@ pub fn parse<T: ToString>(msg: T) -> Vec<Link> {
 #[cfg(test)]
 mod tests {
     use super::parse;
-    // @TODO https://github.com/BurntSushi/quickcheck ?
+    // @TODO https://github.com/BurntSushi/quickcheck
 
     #[test]
     fn should_not_find_links() {
