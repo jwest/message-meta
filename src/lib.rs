@@ -31,21 +31,12 @@ mod tests {
     }
 
     #[test]
-    fn should_parse_message_with_link() {
-        let meta = parse("test message https://google.com/ test");
+    fn should_parse_with_all_features() {
+        let meta = parse("test message https://google.com/ #hashtag test");
 
-        assert_eq!(meta.message, "test message https://google.com/ test");
+        assert_eq!(meta.message, "test message https://google.com/ #hashtag test");
         assert_eq!(meta.links.len(), 1);
         assert_eq!(meta.links[0].url, "https://google.com/");
-        assert_eq!(meta.hashtags.len(), 0);
-    }
-
-    #[test]
-    fn should_parse_message_with_hashtag() {
-        let meta = parse("test message #hashtag test");
-
-        assert_eq!(meta.message, "test message #hashtag test");
-        assert_eq!(meta.links.len(), 0);
         assert_eq!(meta.hashtags.len(), 1);
         assert_eq!(meta.hashtags[0].name, "#hashtag");
     }
