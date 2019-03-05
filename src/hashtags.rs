@@ -39,6 +39,13 @@ mod tests {
     }
 
     #[test]
+    fn should_not_find_hashtag_because_contains_only_numbers() {
+        let hashtags = parse("#1");
+
+        assert_eq!(hashtags.len(), 0);
+    }
+
+    #[test]
     fn should_find_hashtag_with_other_text() {
         let hashtags = parse("text https://google.com/?test#hash #hashtag text");
 
