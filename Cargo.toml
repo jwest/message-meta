@@ -1,7 +1,11 @@
 [package]
 name = "message-meta"
+description = "String (message) parser. Parsing tokens like links or hashtags"
+keywords = ["message", "parser", "link", "hashtag", "meta"]
+license = "MIT"
 version = "0.1.0"
 authors = ["Jakub Westfalewski <j.westfalewski@gmail.com>"]
+repository = "https://github.com/jwest/message-meta"
 edition = "2018"
 
 [dependencies]
