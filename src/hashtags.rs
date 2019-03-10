@@ -18,10 +18,39 @@ pub fn parse<T: ToString>(msg: T) -> Vec<Hashtag> {
     hashtags
 }
 
+use proptest::prelude::*;
+
+proptest! {
+    #[test]
+    fn doesnt_crash(s in "\\PC*") {
+        parse_date(&s);
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    use quickcheck::{quickcheck};
+
     use super::parse;
+    use super::Hashtag;
     // @TODO https://github.com/BurntSushi/quickcheck
+
+    fn check_parse(msg: String) -> bool {
+        dbg!(&msg);
+        if !msg.contains("#") {
+            return parse(msg).len() == 0;
+        }
+        let res = parse(msg);
+        if res.len() > 0 {
+            return res[0].name.len() > 1 && res[0].name.get(0..1).unwrap() == "#";
+        }
+        return true;
+    }
+
+    #[test]
+    fn should_quickcheck() {
+        quickcheck::quickcheck(check_parse as fn(String) -> bool);
+    }
 
     #[test]
     fn should_not_find_hashtag() {

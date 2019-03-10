@@ -1,5 +1,8 @@
 extern crate regex;
 
+#[cfg(test)]
+extern crate quickcheck;
+
 mod links;
 mod hashtags;
 
